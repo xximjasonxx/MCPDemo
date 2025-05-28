@@ -37,4 +37,20 @@ public class CountryController(IContext context) : ControllerBase
         
         return Ok(new CountryResponseModel(country.CountryCode, country.CountryName));
     }
+
+    [HttpGet("country/{countryCode}/regions")]
+    public async Task<IActionResult> GetRegionsByCountryCode(string countryCode)
+    {
+        if (string.IsNullOrEmpty(countryCode))
+        {
+            return BadRequest("Country Code is required");
+        }
+
+        var regions = await context.Locations
+            .Where(x => x.CountryCode == countryCode && string.IsNullOrEmpty(x.SubRegion1Code) == false)
+            .Select(x => new RegionResponseModel(x.SubRegion1Code, x.SubRegion1Name))
+            .ToDistinctListAsync(x => x.RegionCode);
+        
+        return Ok(regions);
+    }
 }

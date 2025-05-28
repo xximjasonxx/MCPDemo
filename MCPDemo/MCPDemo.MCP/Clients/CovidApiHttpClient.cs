@@ -12,9 +12,18 @@ public class CovidApiHttpClient(HttpClient httpClient) : ICovidApiClient
         
         return JsonConvert.DeserializeObject<List<CountryResponseModel>>(await response.Content.ReadAsStringAsync());
     }
+
+    public async Task<List<RegionResponseModel>?> GetRegionsForCountry(string countryCode)
+    {
+        var response = await httpClient.GetAsync($"/api/v1/country/{countryCode}/regions");
+        response.EnsureSuccessStatusCode();
+        
+        return JsonConvert.DeserializeObject<List<RegionResponseModel>>(await response.Content.ReadAsStringAsync());
+    }
 }
 
 public interface ICovidApiClient
 {
     Task<List<CountryResponseModel>?> GetCountries();
+    Task<List<RegionResponseModel>?> GetRegionsForCountry(string countryCode);
 }

@@ -1,8 +1,28 @@
 using MCPDemo.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace MCPDemo.Data;
+
+public class CovidDataDbContextFactory() : IDesignTimeDbContextFactory<CovidDataDbContext>
+{
+    public CovidDataDbContext CreateDbContext(string[] args)
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<CovidDataDbContext>();
+        var clientId = args[0];
+        var clientSecret = args[1];
+        
+        var connectionString = @$"
+            Server=tcp:sqlsvr-mcpdemo-eus2-mx01.database.windows.net,1433;Initial Catalog=sqldb-mcpdemo;User ID={clientId};
+            Password='{clientSecret}';Persist Security Info=False; MultipleActiveResultSets=False;Connection Timeout=30;
+            TrustServerCertificate=False;Authentication='Active Directory Service Principal'";
+    
+        optionsBuilder.UseSqlServer(connectionString);
+
+        return new CovidDataDbContext(optionsBuilder.Options);
+    }
+}
 
 public class CovidDataDbContext(DbContextOptions<CovidDataDbContext> options) : DbContext(options), IContext
 {

@@ -17,6 +17,10 @@ public class Location
     public required string CountryName { get; set; }
     
     public string? SubRegion1Code { get; set; }
+    
+    public string? SubRegion1Name { get; set; }
 
     public string? SubRegion2Code { get; set; }
+    
+    public string? SubRegion2Name { get; set; }
 }
