@@ -1,4 +1,4 @@
-using MCPDemo.Api.Models;
+using MCPDemo.Common.ResponsModels;
 using Newtonsoft.Json;
 
 namespace MCPDemo.MCP.Clients;

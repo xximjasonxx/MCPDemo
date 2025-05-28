@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using MCPDemo.Api.Models;
+using MCPDemo.Common.ResponsModels;
 using MCPDemo.MCP.Clients;
 using ModelContextProtocol.Server;
 

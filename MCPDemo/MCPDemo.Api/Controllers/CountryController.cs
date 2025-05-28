@@ -1,4 +1,4 @@
-using MCPDemo.Api.Models;
+using MCPDemo.Common.ResponsModels;
 using MCPDemo.Data;
 using MCPDemo.Data.ExtensionMethods;
 using Microsoft.AspNetCore.Mvc;

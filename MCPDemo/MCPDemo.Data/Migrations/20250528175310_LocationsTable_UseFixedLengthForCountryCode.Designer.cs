@@ -4,6 +4,7 @@ using MCPDemo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MCPDemo.Data.Migrations
 {
     [DbContext(typeof(CovidDataDbContext))]
-    partial class CovidDataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250528175310_LocationsTable_UseFixedLengthForCountryCode")]
+    partial class LocationsTable_UseFixedLengthForCountryCode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
