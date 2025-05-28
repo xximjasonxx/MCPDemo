@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPDemo.MCP", "MCPDemo.MCP\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPDemo.Common", "MCPDemo.Common\MCPDemo.Common.csproj", "{5E76D656-F442-4CBE-9F5F-1E24A702C1C7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{08A67EFA-5CF5-4230-8470-73B95F1AD7B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPDemo.Testing.MCP.Console", "MCPDemo.Testing.MCP.Console\MCPDemo.Testing.MCP.Console.csproj", "{0B6DB222-2CBA-4E7D-9D45-14C8D0EB1C9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,12 @@ Global
 		{5E76D656-F442-4CBE-9F5F-1E24A702C1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E76D656-F442-4CBE-9F5F-1E24A702C1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E76D656-F442-4CBE-9F5F-1E24A702C1C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B6DB222-2CBA-4E7D-9D45-14C8D0EB1C9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B6DB222-2CBA-4E7D-9D45-14C8D0EB1C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B6DB222-2CBA-4E7D-9D45-14C8D0EB1C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B6DB222-2CBA-4E7D-9D45-14C8D0EB1C9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0B6DB222-2CBA-4E7D-9D45-14C8D0EB1C9F} = {08A67EFA-5CF5-4230-8470-73B95F1AD7B6}
 	EndGlobalSection
 EndGlobal

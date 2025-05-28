@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MCPDemo.Api.Controllers;
 
 [ApiController]
-[Route("api/vi/[controller]")]
+[Route("api/v1/[controller]")]
 public class CasesController(IContext context) : ControllerBase
 {
     [HttpGet("country/{countryCode}/totals")]
