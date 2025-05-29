@@ -11,3 +11,12 @@ public record CountryCaseTotalResponseModel(
     long TotalDeceasedCases,
     long TotalRecoveredCases,
     long TotalTestsConducted);
+    
+public record CountryRegionCasesTotalResponseModel(
+    string CountryCode,
+    string RegionCode,
+    string RegionName,
+    long TotalConfirmedCases,
+    long TotalDeceasedCases,
+    long TotalRecoveredCases,
+    long TotalTestsConducted);

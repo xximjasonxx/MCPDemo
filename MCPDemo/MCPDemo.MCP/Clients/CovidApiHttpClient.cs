@@ -28,6 +28,22 @@ public class CovidApiHttpClient(HttpClient httpClient) : ICovidApiClient
         
         return JsonConvert.DeserializeObject<CountryCaseTotalResponseModel>(await response.Content.ReadAsStringAsync());
     }
+
+    public async Task<List<CountryCaseTotalResponseModel>> GetFinalCasesForAllCountries()
+    {
+        var response = await httpClient.GetAsync("/api/v1/cases/country/totals");
+        response.EnsureSuccessStatusCode();
+        
+        return JsonConvert.DeserializeObject<List<CountryCaseTotalResponseModel>>(await response.Content.ReadAsStringAsync());
+    }
+
+    public async Task<List<CountryRegionCasesTotalResponseModel>> GetFinalCasesForCountryRegions(string countryCode)
+    {
+        var response = await httpClient.GetAsync($"/api/v1/cases/country/{countryCode}/regions/totals");
+        response.EnsureSuccessStatusCode();
+        
+        return JsonConvert.DeserializeObject<List<CountryRegionCasesTotalResponseModel>>(await response.Content.ReadAsStringAsync());
+    }
 }
 
 public interface ICovidApiClient
@@ -35,4 +51,6 @@ public interface ICovidApiClient
     Task<List<CountryResponseModel>?> GetCountries();
     Task<List<RegionResponseModel>?> GetRegionsForCountry(string countryCode);
     Task<CountryCaseTotalResponseModel?> GetFinalCasesForCountry(string countryCode);
+    Task<List<CountryCaseTotalResponseModel>> GetFinalCasesForAllCountries();
+    Task<List<CountryRegionCasesTotalResponseModel>> GetFinalCasesForCountryRegions(string countryCode);
 }

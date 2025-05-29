@@ -21,11 +21,4 @@ public class LocationTools(ICovidApiClient covidApiClient)
     {
         return await covidApiClient.GetRegionsForCountry(countryCode);
     }
-
-    [McpServerTool(Name = "GetFinalCasesForCountry")]
-    [Description("Given a country code (2 characters) returns the final numbers for confirmed, deceased, recovered and tests for a country")]
-    public async Task<CountryCaseTotalResponseModel?> GetFinalCasesForCountry(string countryCode)
-    {
-        return await covidApiClient.GetFinalCasesForCountry(countryCode);
-    }
 }
