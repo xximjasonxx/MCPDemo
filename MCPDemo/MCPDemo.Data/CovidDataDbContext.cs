@@ -33,6 +33,7 @@ public class CovidDataDbContext(DbContextOptions<CovidDataDbContext> options) : 
     public DbSet<MonthYearAggregatedCaseInfo> MonthYearAggregatedCaseInfo { get; set; }
     public DbSet<CountryCasesTotal> CountryCasesTotal { get; set; }
     public DbSet<CountryRegionCasesTotal> CountryRegionCasesTotal { get; set; }
+    public DbSet<CountryRegionLocaleCasesTotal> CountryRegionLocaleCasesTotal { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -48,6 +49,10 @@ public class CovidDataDbContext(DbContextOptions<CovidDataDbContext> options) : 
         modelBuilder.Entity<CountryRegionCasesTotal>()
             .HasNoKey()
             .ToView("FinalCasesByCountryRegion");
+
+        modelBuilder.Entity<CountryRegionLocaleCasesTotal>()
+            .HasNoKey()
+            .ToView("FinalCasesByCountryRegionSubRegion");
         
         // customizations
         modelBuilder.Entity<Location>(entity =>
@@ -83,4 +88,5 @@ public interface IContext
     DbSet<MonthYearAggregatedCaseInfo> MonthYearAggregatedCaseInfo { get; }
     DbSet<CountryCasesTotal> CountryCasesTotal { get; }
     DbSet<CountryRegionCasesTotal> CountryRegionCasesTotal { get; }
+    DbSet<CountryRegionLocaleCasesTotal> CountryRegionLocaleCasesTotal { get; }
 }

@@ -20,3 +20,13 @@ public record CountryRegionCasesTotalResponseModel(
     long TotalDeceasedCases,
     long TotalRecoveredCases,
     long TotalTestsConducted);
+    
+public record CountryRegionLocaleCasesTotalResponseModel(
+    string CountryCode,
+    string RegionCode,
+    string LocaleCode,
+    string LocaleName,
+    long TotalConfirmedCases,
+    long TotalDeceasedCases,
+    long TotalRecoveredCases,
+    long TotalTestsConducted);

@@ -85,4 +85,25 @@ public class TotalCasesController(IContext context) : ControllerBase
             result.CumulativeRecoveredCases,
             result.CumulativeTestsConducted));
     }
+
+    [HttpGet("country/{countryCode}/regions/{regionCode}/locales/totals")]
+    public async Task<IActionResult> GetCountryCaseRegionLocalesTotalsAsync(string countryCode, string regionCode)
+    {
+        var results = await context.CountryRegionLocaleCasesTotal
+            .Where(x => x.CountryCode == countryCode && x.SubRegion1Code == regionCode)
+            .ToListAsync();
+
+        if (results.Count == 0)
+            return NotFound();
+
+        return Ok(results.Select(x => new CountryRegionLocaleCasesTotalResponseModel(
+            x.CountryCode,
+            x.SubRegion1Code,
+            x.SubRegion1Code,
+            x.SubRegion2Name,
+            x.CumulativeConfirmedCases,
+            x.CumulativeDeceasedCases,
+            x.CumulativeRecoveredCases,
+            x.CumulativeTestsConducted)));
+    }
 }
