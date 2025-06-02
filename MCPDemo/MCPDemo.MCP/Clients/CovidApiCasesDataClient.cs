@@ -3,7 +3,7 @@ using MCPDemo.MCP.Interfaces;
 
 namespace MCPDemo.MCP.Clients;
 
-public class CovidCasesDataCasesDataClient(HttpClient httpClient) : ClientBase(httpClient), ICovidCasesDataClient
+public class CovidApiDataClient(HttpClient httpClient) : ClientBase(httpClient), ICovidDataClient
 {
     public async Task<CountryCaseTotalResponseModel?> GetFinalCasesForCountry(string countryCode)
     {
@@ -22,7 +22,19 @@ public class CovidCasesDataCasesDataClient(HttpClient httpClient) : ClientBase(h
 
     public async Task<List<CountryRegionLocaleCasesTotalResponseModel>> GetFinalCasesForCountryRegionLocales(string countryCode, string regionCode)
     {
+        Console.WriteLine("Invoking GetFinalCasesForCountryRegionLocales");
         return await InvokeGetRequest<List<CountryRegionLocaleCasesTotalResponseModel>>(
             uriPart: $"api/cases/country/{countryCode}/regions/{regionCode}/locales/totals");
+    }
+    
+    public async Task<List<CountryResponseModel>?> GetCountries()
+    {
+        Console.WriteLine("Invoking GetCountries");
+        return await InvokeGetRequest<List<CountryResponseModel>>("api/v1/countries");
+    }
+
+    public async Task<List<RegionResponseModel>?> GetRegionsForCountry(string countryCode)
+    {
+        return await InvokeGetRequest<List<RegionResponseModel>>($"api/v1/country/{countryCode}/regions");
     }
 }

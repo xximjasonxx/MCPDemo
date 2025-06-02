@@ -1,4 +1,5 @@
 using MCPDemo.Data;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,8 @@ app.UseSwaggerUI();
 
 app.UseRouting();
 app.UseHttpsRedirection();
+
+app.MapGet("/api/healthz", () => Results.Ok(Environment.GetEnvironmentVariable("CONTAINER_VERSION")));
 app.MapControllers();
 
 app.Run();

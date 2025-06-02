@@ -7,7 +7,8 @@ public class ClientBase(HttpClient httpClient)
 {
     protected async Task<TReturn> InvokeGetRequest<TReturn>(string uriPart)
     {
-        var response = await httpClient.GetAsync("/api/v1/countries");
+        var response = await httpClient.GetAsync(uriPart);
+        
         response.EnsureSuccessStatusCode();
         
         var responseContent = await response.Content.ReadAsStringAsync();

@@ -7,5 +7,5 @@ var httpClient = new HttpClient()
     BaseAddress = new Uri("https://aca-mcp-demo-api-mx01.yellowgrass-7d797e98.eastus2.azurecontainerapps.io")
 };
 
-var client = new CovidCasesDataCasesDataClient(httpClient);
+var client = new CovidApiDataClient(httpClient);
 var result = await client.GetFinalCasesForCountry("AF");
