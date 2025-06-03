@@ -15,7 +15,8 @@ builder.Logging.AddConsole(options =>
 builder.Services.AddMcpServer()
     .WithStdioServerTransport()
     .WithTools<TotalCasesTools>()
-    .WithTools<LocationTools>();
+    .WithTools<LocationTools>()
+    .WithTools<RatesTool>();
     
 builder.Services.AddHttpClient<ICovidDataClient, CovidApiDataClient>(options =>
 {

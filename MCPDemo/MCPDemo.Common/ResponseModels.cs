@@ -30,3 +30,11 @@ public record CountryRegionLocaleCasesTotalResponseModel(
     long TotalDeceasedCases,
     long TotalRecoveredCases,
     long TotalTestsConducted);
+
+public record CountryCaseChangeRateResponseModel(
+    string CountryCode,
+    string CountryName,
+    DateTime MonthYear,
+    decimal? ConfirmedCasesChangeRate,
+    decimal? DeceasedCasesChangeRate,
+    decimal? RecoveredCasesChangeRate);
