@@ -24,7 +24,7 @@ public class CovidApiDataClient(HttpClient httpClient) : ClientBase(httpClient),
     {
         Console.WriteLine("Invoking GetFinalCasesForCountryRegionLocales");
         return await InvokeGetRequest<List<CountryRegionLocaleCasesTotalResponseModel>>(
-            uriPart: $"api/cases/country/{countryCode}/regions/{regionCode}/locales/totals");
+            uriPart: $"api/v1/cases/country/{countryCode}/regions/{regionCode}/locales/totals");
     }
     
     public async Task<List<CountryResponseModel>?> GetCountries()

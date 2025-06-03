@@ -8,4 +8,4 @@ var httpClient = new HttpClient()
 };
 
 var client = new CovidApiDataClient(httpClient);
-var result = await client.GetFinalCasesForCountry("AF");
+var result = await client.GetFinalCasesForCountryRegionLocales("US", "NY");
