@@ -38,3 +38,13 @@ public record CountryCaseChangeRateResponseModel(
     decimal? ConfirmedCasesChangeRate,
     decimal? DeceasedCasesChangeRate,
     decimal? RecoveredCasesChangeRate);
+    
+public record CountryRegoionCaseChangeRateResponseModel(
+    string CountryCode,
+    string CountryName,
+    string RegionCode,
+    string RegionName,
+    DateTime MonthYear,
+    decimal? ConfirmedCasesChangeRate,
+    decimal? DeceasedCasesChangeRate,
+    decimal? RecoveredCasesChangeRate);
