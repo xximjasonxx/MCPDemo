@@ -8,6 +8,7 @@ public class ClientBase(HttpClient httpClient)
     protected async Task<TReturn> InvokeGetRequest<TReturn>(string uriPart)
     {
         var response = await httpClient.GetAsync(uriPart);
+        var content = await response.Content.ReadAsStringAsync();
         
         response.EnsureSuccessStatusCode();
         

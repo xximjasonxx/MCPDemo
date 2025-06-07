@@ -17,10 +17,14 @@ builder.Services.AddMcpServer()
     .WithTools<TotalCasesTools>()
     .WithTools<LocationTools>()
     .WithTools<RatesTool>();
-    
+ 
+var configuration = builder.Configuration;
+var covidClientBaseUrl = configuration["CovidApiClientBaseUrl"];
+Console.WriteLine($"Base URL: {covidClientBaseUrl}");
+
 builder.Services.AddHttpClient<ICovidDataClient, CovidApiDataClient>(options =>
 {
-    options.BaseAddress = new Uri("https://aca-mcp-demo-api-mx01.yellowgrass-7d797e98.eastus2.azurecontainerapps.io");
+    options.BaseAddress = new Uri(covidClientBaseUrl ?? throw new Exception("Boom"));
     //options.BaseAddress = new Uri("http://localhost:5290/");
 });
 

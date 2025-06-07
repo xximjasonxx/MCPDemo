@@ -9,23 +9,15 @@ namespace MCPDemo.Api.Controllers;
 
 [ApiController]
 [Route("api/v1")]
-public class RatesController : ControllerBase
+public class RatesController(
+    IGetCountryCaseChangeRatesOperation getCountryCaseChangeRatesOperation,
+    IGetCountryRegionsCaseChangeRatesOperation getCountryRegionsCaseChangeRatesOperation)
+    : ControllerBase
 {
-    private readonly IContext _context;
-    private readonly IGetCountryRegionsCaseChangeRatesOperation _getCountryRegionsCaseChangeRatesOperation;
-    public RatesController(IContext context, IGetCountryRegionsCaseChangeRatesOperation getCountryRegionsCaseChangeRatesOperation)
-    {
-        _context = context;
-        _getCountryRegionsCaseChangeRatesOperation = getCountryRegionsCaseChangeRatesOperation;
-    }
-    
     [HttpGet("rates/country/{countryCode}")]
     public async Task<IActionResult> GetCountryCaseRate(string countryCode)
     {
-        var results = await _context.CountryCaseChangeRates
-            .Where(x => x.CountryCode == countryCode)
-            .ToListAsync();
-        
+        var results = await getCountryCaseChangeRatesOperation.ExecuteAsync(countryCode);
         if (results.Any() == false)
             return NotFound();
         
@@ -42,7 +34,7 @@ public class RatesController : ControllerBase
     [HttpGet("rates/country/{countryCode}/regions")]
     public async Task<IActionResult> GetCountryRegionCaseRate(string countryCode)
     {
-        var results = await _getCountryRegionsCaseChangeRatesOperation.ExecuteAsync(countryCode);
+        var results = await getCountryRegionsCaseChangeRatesOperation.ExecuteAsync(countryCode);
         if (results.Any() == false)
             return NotFound();
 

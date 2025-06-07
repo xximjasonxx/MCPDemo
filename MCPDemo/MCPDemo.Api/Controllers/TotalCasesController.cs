@@ -1,3 +1,4 @@
+using MCPDemo.Api.Operations;
 using MCPDemo.Common.ResponsModels;
 using MCPDemo.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,8 @@ namespace MCPDemo.Api.Controllers;
 
 [ApiController]
 [Route("api/v1/cases")]
-public class TotalCasesController(IContext context) : ControllerBase
+public class TotalCasesController(IContext context, IGetAllCountryTotalsOperation getAllCountryTotalsOperation,
+    IGetCountryRegionsCaseTotalsOperation getCountryRegionsCaseTotalsOperation) : ControllerBase
 {
     [HttpGet("country/{countryCode}/totals")]
     public async Task<IActionResult> GetCountryCaseTotalsAsync(string countryCode)
@@ -30,10 +32,9 @@ public class TotalCasesController(IContext context) : ControllerBase
     }
 
     [HttpGet("country/totals")]
-    public async Task<IActionResult> GetCountryTotalsAsync(string countryCode)
+    public async Task<IActionResult> GetCountryTotalsAsync()
     {
-        var results = await context.CountryCasesTotal.ToListAsync();
-
+        var results = await getAllCountryTotalsOperation.ExecuteAsync();
         return Ok(results.Select(x => new CountryCaseTotalResponseModel(
             x.CountryCode,
             x.CountryName,
@@ -46,14 +47,9 @@ public class TotalCasesController(IContext context) : ControllerBase
     [HttpGet("country/{countryCode}/regions/totals")]
     public async Task<IActionResult> GetCountryCaseRegionTotalsAsync(string countryCode)
     {
-        var results = await context.CountryRegionCasesTotal
-            .Where(x => x.CountryCode == countryCode)
-            .ToListAsync();
-
-        if (results.Count == 0)
-        {
+        var results = await getCountryRegionsCaseTotalsOperation.ExecuteAsync(countryCode);
+        if (results.Any() == false)
             return NotFound();
-        }
 
         return Ok(results.Select(x => new CountryRegionCasesTotalResponseModel(
             x.CountryCode,

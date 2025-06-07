@@ -27,6 +27,9 @@ builder.Services.AddScoped<ICacheService, RedisCacheService>();
 
 // operations
 builder.Services.AddTransient<IGetCountryRegionsCaseChangeRatesOperation, GetCountryRegionsCaseChangeRatesOperation>();
+builder.Services.AddTransient<IGetCountryCaseChangeRatesOperation, GetCountryCaseChangeRatesOperation>();
+builder.Services.AddTransient<IGetAllCountryTotalsOperation, GetAllCountryTotalsOperation>();
+builder.Services.AddTransient<IGetCountryRegionsCaseTotalsOperation, GetCountryRegionsCaseTotalsOperation>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
