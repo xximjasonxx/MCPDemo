@@ -42,4 +42,9 @@ public class CovidApiDataClient(HttpClient httpClient) : ClientBase(httpClient),
     {
         return await InvokeGetRequest<List<CountryCaseChangeRateResponseModel>>($"api/v1/rates/country/{countyCode}");
     }
+
+    public async Task<List<CountryRegionCaseChangeRateResponseModel>> GetCountryRegionCaseChangeRates(string countryCode)
+    {
+        return await InvokeGetRequest<List<CountryRegionCaseChangeRateResponseModel>>($"api/v1/rates/country/{countryCode}/regions");
+    }
 }

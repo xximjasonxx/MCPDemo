@@ -1,3 +1,5 @@
+using MCPDemo.Api.Operations;
+using MCPDemo.Api.Services;
 using MCPDemo.Data;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,12 @@ builder.Services.AddDbContext<IContext, CovidDataDbContext>(options =>
     
     options.UseSqlServer(connectionString);
 });
+
+// caching service
+builder.Services.AddScoped<ICacheService, RedisCacheService>();
+
+// operations
+builder.Services.AddTransient<IGetCountryRegionsCaseChangeRatesOperation, GetCountryRegionsCaseChangeRatesOperation>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

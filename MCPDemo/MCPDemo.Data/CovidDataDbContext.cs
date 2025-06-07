@@ -35,7 +35,7 @@ public class CovidDataDbContext(DbContextOptions<CovidDataDbContext> options) : 
     public DbSet<CountryRegionCasesTotal> CountryRegionCasesTotal { get; set; }
     public DbSet<CountryRegionLocaleCasesTotal> CountryRegionLocaleCasesTotal { get; set; }
     public DbSet<CountryCaseRate> CountryCaseChangeRates { get; set; }
-    public DbSet<CountryRegionCaseRate> CountryRegionCaseChangeRates { get; }
+    public DbSet<CountryRegionCaseRate> CountryRegionCaseChangeRates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

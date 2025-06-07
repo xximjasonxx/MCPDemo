@@ -11,4 +11,5 @@ public interface ICovidDataClient
     Task<List<CountryResponseModel>?> GetCountries();
     Task<List<RegionResponseModel>?> GetRegionsForCountry(string countryCode);
     Task<List<CountryCaseChangeRateResponseModel>> GetCountryCaseChangeRates(string countyCode);
+    Task<List<CountryRegionCaseChangeRateResponseModel>> GetCountryRegionCaseChangeRates(string countryCode);
 }

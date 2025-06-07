@@ -14,4 +14,11 @@ public class RatesTool(ICovidDataClient covidDataClient)
     {
         return await covidDataClient.GetCountryCaseChangeRates(countyCode);
     }
+
+    [McpServerTool(Name = "GetCountryRegionCaseRates")]
+    [Description("Fetches the case rate information by month year time period for regions within a given country represented by a 2 charcter country code")]
+    public async Task<List<CountryRegionCaseChangeRateResponseModel>> GetCountryRegionCaseChangeRates(string countryCode)
+    {
+        return await covidDataClient.GetCountryRegionCaseChangeRates(countryCode);   
+    }
 }

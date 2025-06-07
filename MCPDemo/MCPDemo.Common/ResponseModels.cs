@@ -39,7 +39,7 @@ public record CountryCaseChangeRateResponseModel(
     decimal? DeceasedCasesChangeRate,
     decimal? RecoveredCasesChangeRate);
     
-public record CountryRegoionCaseChangeRateResponseModel(
+public record CountryRegionCaseChangeRateResponseModel(
     string CountryCode,
     string CountryName,
     string RegionCode,

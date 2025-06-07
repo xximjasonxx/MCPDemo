@@ -1,4 +1,5 @@
 using System.Globalization;
+using MCPDemo.Api.Operations;
 using MCPDemo.Common.ResponsModels;
 using MCPDemo.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +9,20 @@ namespace MCPDemo.Api.Controllers;
 
 [ApiController]
 [Route("api/v1")]
-public class RatesController(IContext context) : ControllerBase
+public class RatesController : ControllerBase
 {
+    private readonly IContext _context;
+    private readonly IGetCountryRegionsCaseChangeRatesOperation _getCountryRegionsCaseChangeRatesOperation;
+    public RatesController(IContext context, IGetCountryRegionsCaseChangeRatesOperation getCountryRegionsCaseChangeRatesOperation)
+    {
+        _context = context;
+        _getCountryRegionsCaseChangeRatesOperation = getCountryRegionsCaseChangeRatesOperation;
+    }
+    
     [HttpGet("rates/country/{countryCode}")]
     public async Task<IActionResult> GetCountryCaseRate(string countryCode)
     {
-        var results = await context.CountryCaseChangeRates
+        var results = await _context.CountryCaseChangeRates
             .Where(x => x.CountryCode == countryCode)
             .ToListAsync();
         
@@ -33,14 +42,11 @@ public class RatesController(IContext context) : ControllerBase
     [HttpGet("rates/country/{countryCode}/regions")]
     public async Task<IActionResult> GetCountryRegionCaseRate(string countryCode)
     {
-        var results = await context.CountryRegionCaseChangeRates
-            .Where(x => x.CountryCode == countryCode)
-            .ToListAsync();
-        
+        var results = await _getCountryRegionsCaseChangeRatesOperation.ExecuteAsync(countryCode);
         if (results.Any() == false)
             return NotFound();
 
-        return Ok(results.Select(x => new CountryRegoionCaseChangeRateResponseModel(
+        return Ok(results.Select(x => new CountryRegionCaseChangeRateResponseModel(
             x.CountryCode,
             x.CountryName,
             x.SubRegion1Code,
