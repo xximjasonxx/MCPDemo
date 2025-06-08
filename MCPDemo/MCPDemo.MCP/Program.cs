@@ -2,25 +2,27 @@
 using MCPDemo.MCP.Interfaces;
 using MCPDemo.MCP.Clients;
 using MCPDemo.MCP.Tools;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-var builder = Host.CreateApplicationBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddConsole(options =>
 {
     options.LogToStandardErrorThreshold = LogLevel.Trace;
 });
 
+builder.WebHost.UseUrls("http://0.0.0.0:8080");
 builder.Services.AddMcpServer()
-    .WithStdioServerTransport()
+    .WithHttpTransport()
     .WithTools<TotalCasesTools>()
     .WithTools<LocationTools>()
     .WithTools<RatesTool>();
  
 var configuration = builder.Configuration;
 var covidClientBaseUrl = configuration["CovidApiClientBaseUrl"];
-Console.WriteLine($"Base URL: {covidClientBaseUrl}");
 
 builder.Services.AddHttpClient<ICovidDataClient, CovidApiDataClient>(options =>
 {
@@ -28,4 +30,8 @@ builder.Services.AddHttpClient<ICovidDataClient, CovidApiDataClient>(options =>
     //options.BaseAddress = new Uri("http://localhost:5290/");
 });
 
-await builder.Build().RunAsync();
+var app = builder.Build();
+app.MapMcp();
+
+Console.WriteLine("MCP Server starting on http://0.0.0.0:8080");
+await app.RunAsync();

@@ -12,7 +12,11 @@ COPY . .
 WORKDIR "/src/MCPDemo.MCP"
 RUN dotnet build "MCPDemo.MCP.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "MCPDemo.MCP.csproj" -c $BUILD_CONFIGURATION -o /app/publish
+
 FROM base AS final
 WORKDIR /app
-COPY --from=build /app/build .
-CMD ["dotnet", "MCPDemo.MCP.dll"]
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "MCPDemo.MCP.dll"]
