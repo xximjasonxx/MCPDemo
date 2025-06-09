@@ -4,3 +4,7 @@ bin/
 obj/
 *.user
 .DS_Store
+
+.venv
+__azurite*.json
+.vs/

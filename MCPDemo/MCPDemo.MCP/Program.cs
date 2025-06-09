@@ -31,6 +31,8 @@ builder.Services.AddHttpClient<ICovidDataClient, CovidApiDataClient>(options =>
 });
 
 var app = builder.Build();
+
+app.MapGet("/healthz", () => "Service is running");
 app.MapMcp();
 
 Console.WriteLine("MCP Server starting on http://0.0.0.0:8080");
